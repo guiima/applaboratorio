@@ -1,0 +1,30 @@
+<ion-content padding>
+  <div class="spacer" style="width: 900px; height: 110.9896px;"></div>
+  <div class="ion-text-center">
+    <ion-label position="fixed">E-mail</ion-label>
+    <ion-input [(ngModel)]="email" placeholder="insira seu email"></ion-input>
+  </div>
+  <div class="spacer" style="width: 900px; height: 25.9896px;"></div>
+  <div class="ion-text-center">
+    <ion-label position="fixed">Senha</ion-label>
+    <ion-input
+      [(ngModel)]="senha"
+      placeholder="insira sua senha"
+      type="password"
+    ></ion-input>
+  </div>
+
+  <div class="spacer" style="width: 900px; height: 25.9896px;"></div>
+
+  <ion-button (click)="login()" expand="block" color="dark">Login</ion-button>
+  <div class="spacer" style="width: 900px; height: 25.9896px;"></div>
+
+  <ion-button expand="block" color="dark" href="/cadastro"
+    >Cadastrar</ion-button
+  >
+  <div class="spacer" style="width: 900px; height: 25.9896px;"></div>
+
+  <div class="ion-text-center">
+    <a position="center" href="/recsenha">Esqueceu a senha?</a>
+  </div>
+</ion-content>
