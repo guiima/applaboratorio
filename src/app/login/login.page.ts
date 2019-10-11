@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { logado } from "src/environments/environment";
+import { logado, acesso } from "src/environments/environment";
 import { login } from "./login";
 import { AlertController } from "@ionic/angular";
 
@@ -44,6 +44,9 @@ export class LoginPage implements OnInit {
       .then(dados => {
         logado.id = dados.id;
         logado.tipo = dados.tipo;
+        if (logado.tipo == "professor") {
+          acesso.permitido = true;
+        }
         this.router.navigate(["home"]);
       })
       .catch(response => {

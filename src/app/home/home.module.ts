@@ -4,6 +4,8 @@ import { IonicModule } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { HomePage } from "./home.page";
+import { MenuadmComponent } from "../menuadm/menuadm.component";
+import { MenuuserComponent } from "../menuuser/menuuser.component";
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { HomePage } from "./home.page";
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, MenuadmComponent, MenuuserComponent]
 })
 export class HomePageModule {}

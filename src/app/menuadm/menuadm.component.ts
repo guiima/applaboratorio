@@ -1,13 +1,11 @@
-import { Component } from "@angular/core";
-import { MenuController } from "@ionic/angular";
-import { acesso } from "src/environments/environment";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "home.page.html",
-  styleUrls: ["home.page.scss"]
+  selector: "app-menuadm",
+  templateUrl: "./menuadm.component.html",
+  styleUrls: ["./menuadm.component.scss"]
 })
-export class HomePage {
+export class MenuadmComponent implements OnInit {
   public appPages = [
     {
       title: "Uso Reagente",
@@ -45,6 +43,7 @@ export class HomePage {
       icon: ""
     }
   ];
-  tipo: boolean = acesso.permitido;
-  constructor(private menu: MenuController) {}
+  constructor() {}
+
+  ngOnInit() {}
 }
