@@ -5,7 +5,7 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Reagentes
+        Recursos
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -38,7 +38,7 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Reagentes
+        Recursos
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -65,15 +65,42 @@
 </div>
 
 <ion-content class="ion-padding">
-  <!--LISTA PARA LIBERAR USUARIOS NOVOS-->
-
   <ion-list>
-    <ion-item *ngFor="let reagente of reagentes">
-      <ion-label> {{ reagente.nomenclatura }}</ion-label>
-      <ion-label> {{ reagente.numeracao }}</ion-label>
-      <ion-button color="dark" slot="end" (click)="selectItem(reagente.id)">
-        <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
-      </ion-button>
+    <ion-item>
+      <ion-label>Numeração: </ion-label>
+
+      <ion-label>{{ numeracao }}</ion-label>
     </ion-item>
+    <div class="spacer" style="width: 900px; height: 35.9896px;"></div>
+
+    <ion-item>
+      <ion-label>Nomenclatura: </ion-label>
+      <ion-label>{{ nomenclatura }}</ion-label>
+    </ion-item>
+    <div class="spacer" style="width: 900px; height: 35.9896px;"></div>
+
+    <ion-item>
+      <ion-label>Tipo: </ion-label>
+
+      <ion-label>{{ tipo }}</ion-label>
+    </ion-item>
+    <div class="spacer" style="width: 900px; height: 35.9896px;"></div>
+
+    <ion-item>
+      <ion-label position="floating">Quantidade</ion-label>
+      <ion-input
+        placeholder="Insira quantidade ( Ex: 10ml ou 100g )"
+        [(ngModel)]="quantidade"
+      ></ion-input>
+    </ion-item>
+    <div class="spacer" style="width: 900px; height: 35.9896px;"></div>
   </ion-list>
+  <div class="spacer" style="width: 900px; height: 35.9896px;"></div>
+
+  <ion-button
+    color="dark"
+    class="button button-block button-positive"
+    (click)="alertUso()"
+    >Informar Uso</ion-button
+  >
 </ion-content>

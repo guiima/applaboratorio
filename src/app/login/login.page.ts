@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
         if (logado.tipo == "professor") {
           acesso.permitido = true;
         }
-        this.router.navigate(["home"]);
+        this.router.navigate(["reagente"]);
       })
       .catch(response => {
         if (this.alerte == true) {

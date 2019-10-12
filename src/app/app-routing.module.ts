@@ -8,7 +8,8 @@ const routes: Routes = [
     loadChildren: () => import("./home/home.module").then(m => m.HomePageModule)
   },
   { path: "login", loadChildren: "./login/login.module#LoginPageModule" },  { path: 'precadastro', loadChildren: './precadastro/precadastro.module#PrecadastroPageModule' },
-  { path: 'reagente', loadChildren: './reagente/reagente.module#ReagentePageModule' }
+  { path: 'reagente', loadChildren: './reagente/reagente.module#ReagentePageModule' },
+  { path: 'recurso', loadChildren: './recurso/recurso.module#RecursoPageModule' }
 
 ];
 
