@@ -1,0 +1,79 @@
+<div *ngIf="!exibir">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-menu contentId="content">
+    <ion-content>
+      <div *ngFor="let page of appPages">
+        <ion-menu-toggle *ngIf="page.url">
+          <ion-item
+            [routerLink]="page.url"
+            routerDirection="root"
+            routerLinkActive="active"
+          >
+            <ion-icon [name]="page.icon" slot="start"> </ion-icon>
+            <ion-label>
+              {{ page.title }}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</div>
+
+<div *ngIf="exibir">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-menu contentId="content">
+    <ion-content>
+      <div *ngFor="let page of appPages2">
+        <ion-menu-toggle *ngIf="page.url">
+          <ion-item
+            [routerLink]="page.url"
+            routerDirection="root"
+            routerLinkActive="active"
+          >
+            <ion-icon [name]="page.icon" slot="start"> </ion-icon>
+            <ion-label>
+              {{ page.title }}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</div>
+
+<ion-content class="ion-padding">
+  <!--LISTA PARA LIBERAR USUARIOS NOVOS-->
+  <h4 class="title" class="ion-text-center">LISTA DE REAGENTES</h4>
+  <ion-list>
+    <ion-item *ngFor="let reagente of reagentes">
+      <ion-label> {{ reagente.nomenclatura }}</ion-label>
+      <ion-label> {{ reagente.numeracao }}</ion-label>
+      <ion-button color="dark" slot="end" (click)="selectItem(reagente.id)">
+        <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
