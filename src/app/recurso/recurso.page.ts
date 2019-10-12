@@ -12,7 +12,10 @@ import { AlertController } from "@ionic/angular";
 })
 export class RecursoPage implements OnInit {
   id: number;
+  idrequest: number;
   quantidade: number;
+  quantidaderesquest: number;
+  qtd_minima: number;
   nomenclatura: string;
   numeracao: number;
   tipo: string;
@@ -106,6 +109,8 @@ export class RecursoPage implements OnInit {
         this.nomenclatura = dados.nomenclatura;
         this.numeracao = dados.numeracao;
         this.tipo = dados.tipo;
+        this.idrequest = dados.id;
+        this.quantidaderesquest = dados.quantidade;
         console.log(dados);
       })
       .catch(response => {
@@ -125,7 +130,30 @@ export class RecursoPage implements OnInit {
         {
           text: "OK",
           handler: () => {
-            // this.informarUso();
+            // console.log(this.idrequest);
+            // console.log(this.quantidaderesquest);
+
+            if (this.quantidaderesquest - this.quantidade < 0) {
+              console.log("errrrrroooooooooou");
+              //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+            }
+
+            let jsonInfo = {
+              quantidade: this.quantidaderesquest - this.quantidade
+            };
+
+            console.log("aqui", this.idrequest);
+            this.http
+              .put("http://localhost:3333/recursos/" + this.idrequest, jsonInfo)
+              .toPromise()
+              .then(dados => {
+                console.log(dados);
+                //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+              })
+              .catch(response => {
+                console.log(response);
+                //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+              });
           }
         }
       ]

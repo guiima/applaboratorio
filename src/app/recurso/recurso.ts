@@ -3,5 +3,6 @@ export interface recurso {
   tipo: string;
   nomenclatura: string;
   quantidade: number;
+  qtd_minima: number;
   numeracao: number;
 }
