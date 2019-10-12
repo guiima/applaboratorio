@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { recurso } from "./recurso";
 import { acesso } from "src/environments/environment";
 import { AlertController } from "@ionic/angular";
+import { throwError, timer } from "rxjs";
 
 @Component({
   selector: "app-recurso",
@@ -13,8 +14,8 @@ import { AlertController } from "@ionic/angular";
 export class RecursoPage implements OnInit {
   id: number;
   idrequest: number;
-  quantidade: number;
-  quantidaderesquest: number;
+  quantidade_consumida: number;
+  quantidade_estoque: number;
   qtd_minima: number;
   nomenclatura: string;
   numeracao: number;
@@ -110,7 +111,7 @@ export class RecursoPage implements OnInit {
         this.numeracao = dados.numeracao;
         this.tipo = dados.tipo;
         this.idrequest = dados.id;
-        this.quantidaderesquest = dados.quantidade;
+        this.quantidade_estoque = dados.quantidade;
         console.log(dados);
       })
       .catch(response => {
@@ -118,10 +119,50 @@ export class RecursoPage implements OnInit {
       });
   }
 
+  async quantidadeAlert() {
+    let alert = await this.alert.create({
+      header: "quantidade requisitada maior que quantidade em estoque",
+      buttons: [
+        {
+          text: "Ok",
+          role: "cancel"
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async confirmacaoAlert() {
+    let alert = await this.alert.create({
+      header: "Confirmação de uso: Recurso registrado com sucesso!",
+      buttons: [
+        {
+          text: "Ok",
+          role: "cancel"
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async serverErrorAlert() {
+    let alert = await this.alert.create({
+      header: "Server Error",
+      buttons: [
+        {
+          text: "Ok",
+          role: "cancel"
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async alertUso() {
     let alert = await this.alert.create({
       header: "Confirmar uso de: ",
-      subHeader: this.quantidade + " (ml ou g) de " + this.nomenclatura,
+      subHeader:
+        this.quantidade_consumida + " (ml ou g) de " + this.nomenclatura,
       buttons: [
         {
           text: "Cancelar",
@@ -130,30 +171,35 @@ export class RecursoPage implements OnInit {
         {
           text: "OK",
           handler: () => {
-            // console.log(this.idrequest);
-            // console.log(this.quantidaderesquest);
+            try {
+              if (this.quantidade_estoque - this.quantidade_consumida < 0) {
+                throw new Error("1");
+              }
 
-            if (this.quantidaderesquest - this.quantidade < 0) {
-              console.log("errrrrroooooooooou");
-              //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+              let jsonInfo = {
+                quantidade: this.quantidade_estoque - this.quantidade_consumida
+              };
+
+              this.http
+                .put(
+                  "http://localhost:3333/recursos/" + this.idrequest,
+                  jsonInfo
+                )
+                .toPromise()
+                .then(dados => {
+                  this.confirmacaoAlert();
+                  timer(2000).subscribe(() => {
+                    this.router.navigate(["reagente"]);
+                  });
+                })
+                .catch(response => {
+                  this.serverErrorAlert();
+                });
+            } catch (err) {
+              if (err.message == 1) {
+                this.quantidadeAlert();
+              }
             }
-
-            let jsonInfo = {
-              quantidade: this.quantidaderesquest - this.quantidade
-            };
-
-            console.log("aqui", this.idrequest);
-            this.http
-              .put("http://localhost:3333/recursos/" + this.idrequest, jsonInfo)
-              .toPromise()
-              .then(dados => {
-                console.log(dados);
-                //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-              })
-              .catch(response => {
-                console.log(response);
-                //tratar aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-              });
           }
         }
       ]
