@@ -9,6 +9,7 @@ import { formatDate } from "@angular/common";
   styleUrls: ["./reserva.page.scss"]
 })
 export class ReservaPage implements OnInit {
+  today2: number = Date.now();
   public appPages = [
     {
       title: "Uso Reagente",
@@ -166,4 +167,6 @@ export class ReservaPage implements OnInit {
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = selected.toISOString();
   }
+
+  func() {}
 }

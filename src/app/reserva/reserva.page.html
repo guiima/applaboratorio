@@ -66,7 +66,7 @@
 
 <!-- ============= menu daqui pra cima =================== -->
 
-<ion-content padding>
+<ion-content class="ion-padding">
   <ion-item>
     <ion-label>Equipamentos</ion-label>
     <ion-select interface="popover">
@@ -83,7 +83,7 @@
       <ion-item>
         <ion-label>Inicio</ion-label>
         <ion-datetime
-          displayFormat="DD/MM/YYYY HH:mm"
+          displayFormat="DD/MM/YYYY HH"
           pickerFormat="D MMM:HH:mm"
           [(ngModel)]="event.startTime"
           [min]="minDate"
@@ -136,14 +136,14 @@
     </ion-col>
 
     <!-- Move back one screen of the slides -->
-    <ion-col size="6" text-left>
+    <ion-col size="6" class="ion-text-left">
       <ion-button fill="clear" (click)="back()">
         <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-col>
 
     <!-- Move forward one screen of the slides -->
-    <ion-col size="6" text-right>
+    <ion-col size="6" tclass="ion-text-right">
       <ion-button fill="clear" (click)="next()">
         <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
       </ion-button>
@@ -157,8 +157,8 @@
     (onEventSelected)="onEventSelected($event)"
     (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)"
-    startHour="6"
-    endHour="20"
+    startHour="7"
+    endHour="23"
     step="30"
     startingDayWeek="1"
   >
