@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { logado, acesso } from "src/environments/environment";
 import { login } from "./login";
 import { AlertController } from "@ionic/angular";
+import { throwError } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
   email: any;
   senha: any;
   auth: any;
-
+  alerte: boolean = true;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -44,13 +45,19 @@ export class LoginPage implements OnInit {
       .then(dados => {
         logado.id = dados.id;
         logado.tipo = dados.tipo;
+        if (dados.autorizado == false) {
+          this.alerte = false;
+          throw this.router.navigate(["precadastro"]);
+        }
         if (logado.tipo == "professor") {
           acesso.permitido = true;
         }
         this.router.navigate(["home"]);
       })
       .catch(response => {
-        this.alertUso();
+        if (this.alerte == true) {
+          this.alertUso();
+        }
       });
   }
 }
