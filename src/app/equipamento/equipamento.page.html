@@ -1,0 +1,13 @@
+<ion-content class="ion-padding">
+  <!--LISTA PARA LIBERAR USUARIOS NOVOS-->
+
+  <ion-list>
+    <ion-item *ngFor="let equipamento of equipamentos">
+      <ion-label> {{ equipamento.equipamento.nome }}</ion-label>
+      <!-- <ion-label> {{ equipamento. }}</ion-label> -->
+      <ion-button color="dark" slot="end" (click)="selectItem(equipamento.id)">
+        <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
