@@ -1,0 +1,166 @@
+<div *ngIf="exibir">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        reserva
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-menu contentId="content">
+    <ion-content>
+      <div *ngFor="let page of appPages">
+        <ion-menu-toggle *ngIf="page.url">
+          <ion-item
+            [routerLink]="page.url"
+            routerDirection="root"
+            routerLinkActive="active"
+          >
+            <ion-icon [name]="page.icon" slot="start"> </ion-icon>
+            <ion-label>
+              {{ page.title }}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</div>
+
+<div *ngIf="!exibir">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Reserva
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-menu contentId="content">
+    <ion-content>
+      <div *ngFor="let page of appPages2">
+        <ion-menu-toggle *ngIf="page.url">
+          <ion-item
+            [routerLink]="page.url"
+            routerDirection="root"
+            routerLinkActive="active"
+          >
+            <ion-icon [name]="page.icon" slot="start"> </ion-icon>
+            <ion-label>
+              {{ page.title }}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</div>
+
+<!-- ============= menu daqui pra cima =================== -->
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Equipamentos</ion-label>
+    <ion-select interface="popover">
+      <ion-select-option value="nes">PREECHER</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Card for adding a new event -->
+  <ion-card>
+    <ion-card-header tappable (click)="collapseCard = !collapseCard">
+      <ion-card-title>Nome do Equipamento selecionado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="!collapseCard">
+      <ion-item>
+        <ion-label>Inicio</ion-label>
+        <ion-datetime
+          displayFormat="DD/MM/YYYY HH:mm"
+          pickerFormat="D MMM:HH:mm"
+          [(ngModel)]="event.startTime"
+          [min]="minDate"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fim</ion-label>
+        <ion-datetime
+          displayFormat="DD/MM/YYYY HH:mm"
+          pickerFormat="D MMM:HH:mm"
+          [(ngModel)]="event.endTime"
+          [min]="minDate"
+        ></ion-datetime>
+      </ion-item>
+      <ion-button
+        fill="outline"
+        expand="block"
+        (click)="addEvent()"
+        [disabled]="event.endTime == ''"
+        >Adicionar Reserva</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row>
+    <!-- Change the displayed calendar mode -->
+    <ion-col size="4">
+      <ion-button
+        expand="block"
+        [color]="calendar.mode == 'month' ? 'primary' : 'secondary'"
+        (click)="changeMode('month')"
+        >Mês</ion-button
+      >
+    </ion-col>
+    <ion-col size="4">
+      <ion-button
+        expand="block"
+        [color]="calendar.mode == 'week' ? 'primary' : 'secondary'"
+        (click)="changeMode('week')"
+        >Semana</ion-button
+      >
+    </ion-col>
+    <ion-col size="4">
+      <ion-button
+        expand="block"
+        [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
+        (click)="changeMode('day')"
+        >Dia</ion-button
+      >
+    </ion-col>
+
+    <!-- Move back one screen of the slides -->
+    <ion-col size="6" text-left>
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <!-- Move forward one screen of the slides -->
+    <ion-col size="6" text-right>
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    startHour="6"
+    endHour="20"
+    step="30"
+    startingDayWeek="1"
+  >
+  </calendar>
+</ion-content>
